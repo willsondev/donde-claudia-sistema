@@ -1,0 +1,21 @@
+{
+    "name": "Donde Claudia",
+    "short_name": "Donde Claudia",
+    "description": "Calculadora de Propinas y Boletas SII",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#42b983",
+    "icons": [
+        {
+            "src": "/img/DALL·E 2024-11-10 15.48.10 - A PWA icon for a restaurant named 'Donde Claudia', featuring a simple and elegant design. The icon should incorporate elements of food, such as a fork.webp",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/DALL·E 2024-11-10 15.48.10 - A PWA icon for a restaurant named 'Donde Claudia', featuring a simple and elegant design. The icon should incorporate elements of food, such as a fork.webp",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
