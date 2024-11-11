@@ -15,6 +15,7 @@
         />
       </section>
     </main>
+       <button v-if="showInstallButton" @click="installApp">Instalar App</button>
   </div>
 </template>
 
@@ -26,10 +27,43 @@ export default {
   components: {
     NavBar,
     CardVue
-  }
+  },
+  data() {
+    return {
+      showInstallButton: false,
+      deferredPrompt: null,
+    };
+  },
+  mounted() {
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      this.deferredPrompt = event;
+      this.showInstallButton = true;
+    });
+  },
+  methods: {
+    async installApp() {
+      if (this.deferredPrompt) {
+        this.deferredPrompt.prompt();
+        const choiceResult = await this.deferredPrompt.userChoice;
+        if (choiceResult.outcome === 'accepted') {
+          console.log('El usuario aceptó la instalación');
+        } else {
+          console.log('El usuario rechazó la instalación');
+        }
+        this.deferredPrompt = null;
+        this.showInstallButton = false;
+      }
+    },
+  },
 }
 </script>
 
 <style>
 /* Puedes eliminar los estilos aquí, ya que Tailwind los reemplaza */
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
 </style>
