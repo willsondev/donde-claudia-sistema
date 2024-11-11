@@ -3,6 +3,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import './assets/tailwind.css';
 import { Workbox } from 'workbox-window';
+import './registerServiceWorker'
 
 const app = createApp(App);
 app.mount('#app');

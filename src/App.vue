@@ -15,7 +15,8 @@
         />
       </section>
     </main>
-       <button v-if="showInstallButton" @click="installApp">Instalar App</button>
+    <!-- Instalar PWA -->
+   
   </div>
 </template>
 
@@ -36,23 +37,23 @@ export default {
   },
   mounted() {
     window.addEventListener('beforeinstallprompt', (event) => {
-      event.preventDefault();
-      this.deferredPrompt = event;
-      this.showInstallButton = true;
+      event.preventDefault(); // Prevenir la instalación automática
+      this.deferredPrompt = event; // Guardar el evento para usarlo luego
+      this.showInstallButton = true; // Mostrar el botón de instalación
     });
   },
   methods: {
     async installApp() {
       if (this.deferredPrompt) {
-        this.deferredPrompt.prompt();
-        const choiceResult = await this.deferredPrompt.userChoice;
+        this.deferredPrompt.prompt(); // Mostrar el prompt de instalación
+        const choiceResult = await this.deferredPrompt.userChoice; // Esperar la decisión del usuario
         if (choiceResult.outcome === 'accepted') {
           console.log('El usuario aceptó la instalación');
         } else {
           console.log('El usuario rechazó la instalación');
         }
-        this.deferredPrompt = null;
-        this.showInstallButton = false;
+        this.deferredPrompt = null; // Resetear el prompt después de la interacción
+        this.showInstallButton = false; // Ocultar el botón de instalación
       }
     },
   },
@@ -60,10 +61,19 @@ export default {
 </script>
 
 <style>
-/* Puedes eliminar los estilos aquí, ya que Tailwind los reemplaza */
-button {
+/* Estilo para el botón de instalación */
+.install-button {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.install-button:hover {
+  background-color: #45a049;
 }
 </style>
