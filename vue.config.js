@@ -3,7 +3,7 @@ const { defineConfig } = require('@vue/cli-service');
 module.exports = defineConfig({
   transpileDependencies: true,
    pwa: {
-    name: 'Mi Aplicación Vue',
+    name: 'Donde Claudia',
     themeColor: '#42b983',
     msTileColor: '#ffffff',
     manifestOptions: {
