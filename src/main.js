@@ -2,16 +2,17 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import './assets/tailwind.css';
-import { Workbox } from 'workbox-window';
-import './registerServiceWorker'
+
 
 const app = createApp(App);
 app.mount('#app');
 
 let deferredPrompt = null;
 
+// Escuchar el evento beforeinstallprompt para mostrar el botón de instalación
 window.addEventListener('beforeinstallprompt', (event) => {
   console.log('Evento beforeinstallprompt disparado');
+  // Prevenir que se muestre el banner por defecto
   event.preventDefault();
   deferredPrompt = event;
 
@@ -22,16 +23,17 @@ window.addEventListener('beforeinstallprompt', (event) => {
   }
 });
 
+// Manejar el clic en el botón de instalación
 document.addEventListener('DOMContentLoaded', () => {
   const installButton = document.getElementById('install-button');
   if (installButton) {
     installButton.addEventListener('click', async () => {
       if (deferredPrompt) {
-        deferredPrompt.prompt();
+        deferredPrompt.prompt(); // Mostrar el prompt de instalación
         const choiceResult = await deferredPrompt.userChoice;
         console.log(`El usuario ${choiceResult.outcome === 'accepted' ? 'aceptó' : 'rechazó'} la instalación`);
         deferredPrompt = null;
-        installButton.style.display = 'none';
+        installButton.style.display = 'none'; // Ocultar el botón después de la acción
       } else {
         console.log('No se encontró deferredPrompt');
       }
@@ -39,13 +41,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-  const wb = new Workbox('/service-worker.js');
-  wb.register()
-    .then((registration) => {
-      console.log('Service Worker registrado con éxito:', registration);
-    })
-    .catch((error) => {
-      console.log('Error al registrar el Service Worker:', error);
-    });
-}
+
